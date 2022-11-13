@@ -15,8 +15,7 @@
 ### Association
 
 - has_many :items
-- has_many :purchase
-- has_one :pay
+- has_many :orders
 
 
 ## itemsテーブル
@@ -35,18 +34,11 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchase
+- has_one :order
 
-
-## purchaseテーブル
+## ordersテーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| postal_code        | integer    | null: false                    |
-| prefecture_id      | integer    | null: false                    |
-| city               | string     | null: false                    |
-| addresses          | string     | null: false                    |
-| building           | string     |                                |
-| phone_number       | string     | null: false                    |
 | user               | references | null: false, foreign_key: true |
 | item               | references | null: false, foreign_key: true |
 
@@ -54,14 +46,32 @@
 
 - belongs_to :user
 - has_one :item
+- has_one :address
+- has_one :card
 
 
-## payテーブル
+## addressesテーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| user               | references | null: false, foreign_key: true |
+| postal_code        | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| city               | string     | null: false                    |
+| address            | string     | null: false                    |
+| building           | string     |                                |
+| phone_number       | string     | null: false                    |
+| order              | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_one :user
+- has_one :order
+
+
+## cardsテーブル
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| order              | references | null: false, foreign_key: true |
+
+### Association
+
+- has_one :order
 - attr_accessor :token
