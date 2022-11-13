@@ -15,6 +15,7 @@
 ### Association
 
 - has_many :items
+- has_many :purchase
 - has_one :pay
 
 
@@ -23,29 +24,41 @@
 | ----------------------- | ---------- | ------------------------------ |
 | name                    | string     | null: false                    |
 | info                    | text       | null: false                    |
-| category_id             | string     | null: false                    |
-| sales_status_id         | string     | null: false                    |
-| shipping_fee_status_id  | string     | null: false                    |
-| prefecture_id           | string     | null: false                    |
-| scheduled_delivery_id   | string     | null: false                    |
+| category_id             | integer    | null: false                    |
+| sales_status_id         | integer    | null: false                    |
+| shipping_fee_status_id  | integer    | null: false                    |
+| prefecture_id           | integer    | null: false                    |
+| scheduled_delivery_id   | integer    | null: false                    |
 | price                   | integer    | null: false                    |
-| sold                    | float      | null: false                    |
 | user                    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- has_one :purchase
 
 
-## payテーブル
+## purchaseテーブル
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | postal_code        | integer    | null: false                    |
 | prefecture_id      | integer    | null: false                    |
 | city               | string     | null: false                    |
 | addresses          | string     | null: false                    |
-| building           | string     | null: true                    |
-| phone_number       | integer    | null: false                    |
+| building           | string     |                                |
+| phone_number       | string     | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- has_one :item
+
+
+## payテーブル
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
 | user               | references | null: false, foreign_key: true |
 
 ### Association
