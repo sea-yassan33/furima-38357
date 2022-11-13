@@ -45,9 +45,8 @@
 ### Association
 
 - belongs_to :user
-- has_one :item
-- has_one :address
-- has_one :card
+- belongs_to :item
+- belongs_to :address
 
 
 ## addressesテーブル
@@ -64,14 +63,3 @@
 ### Association
 
 - has_one :order
-
-
-## cardsテーブル
-| Column             | Type       | Options                        |
-| ------------------ | ---------- | ------------------------------ |
-| order              | references | null: false, foreign_key: true |
-
-### Association
-
-- has_one :order
-- attr_accessor :token
