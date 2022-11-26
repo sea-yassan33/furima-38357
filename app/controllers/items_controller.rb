@@ -47,9 +47,8 @@ class ItemsController < ApplicationController
   def corrent_user
     @item = Item.find(params[:id])
     @user = @item.user
-    unless @user == current_user
-      redirect_to(items_path)
-    end
-  end
+    return if @user == current_user
 
+    redirect_to(items_path)
+  end
 end
