@@ -22,15 +22,14 @@ class ItemsController < ApplicationController
   end
 
   def show
-    find_item
+    
   end
 
   def edit
-    find_item
+    
   end
 
   def update
-    find_item
 
     if @item.update(item_params)
       redirect_to action: :show
