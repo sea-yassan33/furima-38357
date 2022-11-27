@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :corrent_user, only: [:edit]
-  before_action :find_item, only: [:show, :edit, :update]
+  before_action :find_item, only: %i[show edit update edit destroy]
+  before_action :corrent_user, only: %i[edit destroy]
   
 
   def index
@@ -21,21 +21,21 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show
-    
-  end
+  def show; end
 
-  def edit
-    
-  end
+  def edit; end
 
   def update
-
     if @item.update(item_params)
       redirect_to action: :show
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to items_path
   end
 
   private
@@ -45,16 +45,15 @@ class ItemsController < ApplicationController
                                  :prefecture_id, :scheduled_delivery_id, :price).merge(user_id: current_user.id)
   end
 
-  def corrent_user
+  def find_item
     @item = Item.find(params[:id])
+  end
+
+  def corrent_user
     @user = @item.user
     return if @user == current_user
-
     redirect_to(items_path)
   end
 
-  def find_item
-    @item = Item.find(params[:id])
-  end 
-
+  
 end
