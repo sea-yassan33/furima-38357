@@ -2,7 +2,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :find_item, only: %i[show edit update edit destroy]
   before_action :corrent_user, only: %i[edit destroy]
-  
 
   def index
     @item = Item.all.order('created_at DESC')
@@ -50,12 +49,13 @@ class ItemsController < ApplicationController
   end
 
   def corrent_user
-    if Order.exists?(item_id: @item.id )
+    if Order.exists?(item_id: @item.id)
       redirect_to items_path
-    else @user = @item.user
+    else
+      @user = @item.user
       return if @user == current_user
+
       redirect_to(items_path)
     end
   end
-
 end
