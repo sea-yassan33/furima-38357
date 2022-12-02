@@ -50,9 +50,12 @@ class ItemsController < ApplicationController
   end
 
   def corrent_user
-    @user = @item.user
-    return if @user == current_user
-    redirect_to(items_path)
+    if Order.exists?(item_id: @item.id )
+      redirect_to items_path
+    else @user = @item.user
+      return if @user == current_user
+      redirect_to(items_path)
+    end
   end
 
 end
