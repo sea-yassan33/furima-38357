@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_item, only: [:index,:create]
+  before_action :sell_path, only: [:index]
 
   def index
     @order = OrderForm.new
@@ -36,6 +37,12 @@ class OrdersController < ApplicationController
         card: order_params[:token],
         currency: 'jpy'
       )
+  end
+
+  def sell_path
+    if Order.exists?(item_id: @item.id )
+      redirect_to items_path
+    end
   end
 
 end
