@@ -20,6 +20,16 @@ RSpec.describe OrderForm, type: :model do
     end
 
     context '購入情報が登録されない場合' do
+      it 'user_idが空の場合は登録されない' do
+        @order_form.user_id = ''
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空の場合は登録されない' do
+        @order_form.item_id = ''
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("Item can't be blank")
+      end
       it 'postal_codeが空の場合は登録されない' do
         @order_form.postal_code = ''
         @order_form.valid?
