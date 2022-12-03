@@ -44,9 +44,10 @@ class OrdersController < ApplicationController
       redirect_to items_path
     else
       @user = @item.user
-      return if @user != current_user
-
-      redirect_to(items_path)
+      if @user == current_user
+        redirect_to(items_path)
+      else
+      end      
     end
   end
 end
